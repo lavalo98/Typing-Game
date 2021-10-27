@@ -445,7 +445,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb216f70bca439447b3c1ccdfabc3ec5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  a: {fileID: 5325040804449647034, guid: e5c2feb3289126f47bba98d8ccd57b84, type: 3}
+  a: {fileID: 1045981500801913023, guid: 2e2328a775bec6a43938093993ba433e, type: 3}
 --- !u!195 &3708225825854041384
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -480,7 +480,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82f9918581e2da4448ae4a92a6183c62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyDeathParticles: {fileID: 5325040804449647034, guid: e5c2feb3289126f47bba98d8ccd57b84, type: 3}
+  enemyDeathParticles: {fileID: 1045981500801913023, guid: 2e2328a775bec6a43938093993ba433e, type: 3}
 --- !u!1 &8034226465330739661
 GameObject:
   m_ObjectHideFlags: 0

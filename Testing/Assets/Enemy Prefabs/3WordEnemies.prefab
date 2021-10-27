@@ -803,7 +803,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb216f70bca439447b3c1ccdfabc3ec5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  a: {fileID: 5325040804449647034, guid: fec167010c8185b4cb972bcc36342d61, type: 3}
+  a: {fileID: 4211919256639247055, guid: acfcfc1fa56fc9042889783dce294072, type: 3}
 --- !u!195 &-2696803932029043016
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -854,4 +854,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82f9918581e2da4448ae4a92a6183c62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyDeathParticles: {fileID: 5325040804449647034, guid: fec167010c8185b4cb972bcc36342d61, type: 3}
+  enemyDeathParticles: {fileID: 4211919256639247055, guid: acfcfc1fa56fc9042889783dce294072, type: 3}
