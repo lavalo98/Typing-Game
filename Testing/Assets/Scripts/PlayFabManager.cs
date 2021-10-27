@@ -4,11 +4,13 @@ using UnityEngine;
 using PlayFab;
 using PlayFab.ClientModels;
 using System;
+using UnityEngine.UIElements;
+using TMPro;
 
 public class PlayFabManager : MonoBehaviour
 {
-    public Tuple<int, string, int> scoreRow;
-    
+    public GameObject rowPrefab;
+    public Transform rowsParent;
 
     // Start is called before the first frame update
     void Start()
@@ -78,6 +80,13 @@ public class PlayFabManager : MonoBehaviour
     {
         foreach (var item in result.Leaderboard)
         {
+
+            GameObject newGo = Instantiate(rowPrefab, rowsParent);
+            TextMeshProUGUI[] texts = newGo.GetComponentsInChildren<TextMeshProUGUI>();
+            texts[0].text = (item.Position + 1).ToString();
+            texts[1].text = item.PlayFabId;
+            texts[2].text = item.StatValue.ToString();
+
             Debug.Log(item.Position + " || " + item.PlayFabId + " || " + item.StatValue);
         }
     }
