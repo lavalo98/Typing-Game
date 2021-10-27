@@ -1,0 +1,70 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Enemy
+  - Enemy Spawn
+  - Marked for death
+  - Bullet
+  - Projectile
+  - Ground
+  - WPMTracker
+  - WPMText
+  - Score Tracker
+  - ResetChar
+  - 1 Word Enemy
+  - 2 Word Enemy
+  - 3 Word Enemy
+  - Test
+  - AttackSound
+  - MenuEnemy
+  - MenuEnemyText
+  - WordDifficultyChecker
+  - GameOverMenu
+  - EnemyDespawner
+  - gameOverPoints
+  - gameOverWPM
+  - TimeTracker
+  - DiffucultyScaler
+  - TimeElapsedGameOver
+  - PlayFab
+  - OptionsEnemy
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - isPlayer
+  - Water
+  - UI
+  - IsGround
+  - postProcessing
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
