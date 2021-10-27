@@ -78,6 +78,10 @@ public class PlayFabManager : MonoBehaviour
 
     void OnLeaderboardGet(GetLeaderboardResult result)
     {
+        foreach (Transform item in rowsParent) {
+            Destroy(item.gameObject);
+        }
+
         foreach (var item in result.Leaderboard)
         {
 
