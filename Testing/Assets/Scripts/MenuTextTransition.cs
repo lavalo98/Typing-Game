@@ -8,52 +8,73 @@ public class MenuTextTransition : MonoBehaviour
 {
     public GameObject mainMenu;
     public GameObject optionsMenu;
+    public GameObject levelSelectMenu;
     public Button optionsButton;
     public Button playButton;
     public Button quitButton;
     public Button backButton;
+    public Button levelSelectBackButton;
     public TextMeshProUGUI optionsHeader;
+    public TextMeshProUGUI levelSelectHeader;
     public Button volume;
     public Slider volumeSlider;
 
     void Start()
     {
         // We are adding a listener so our method will be called when button is clicked
-        optionsButton.onClick.AddListener(Button1Clicked);
-        backButton.onClick.AddListener(Button2Clicked);
+        optionsButton.onClick.AddListener(OptionsButtonClicked);
+        backButton.onClick.AddListener(BackToMainButtonClicked);
+        playButton.onClick.AddListener(PlayButtonClicked);
     }
 
-    public void Button1Clicked()
+    public void OptionsButtonClicked()
     {
         //This method will be called when button1 is clicked 
         //Do whatever button 1 does
         playButton.gameObject.SetActive(false);
         quitButton.gameObject.SetActive(false);
         optionsButton.gameObject.SetActive(false);
-        StartCoroutine(ButtonDelay1());
+        StartCoroutine(OptionsButton());
     }
 
-    public void Button2Clicked()
+    public void PlayButtonClicked() {
+        //This method will be called when button1 is clicked 
+        //Do whatever button 1 does
+        playButton.gameObject.SetActive(false);
+        quitButton.gameObject.SetActive(false);
+        optionsButton.gameObject.SetActive(false);
+        StartCoroutine(PlayButton());
+    }
+
+    public void BackToMainButtonClicked()
     {
         //This method will be called when button1 is clicked 
         //Do whatever button 1 does
         optionsMenu.gameObject.SetActive(false);
-        StartCoroutine(ButtonDelay2());
+        levelSelectMenu.gameObject.SetActive(false);
+        StartCoroutine(BackToMainButtonDelay());
     }
 
-    IEnumerator ButtonDelay1()
+    IEnumerator OptionsButton()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(.7f);
 
-        // This line will be executed after 10 seconds passed
+        // This line will be executed after .7 seconds passed
         optionsMenu.gameObject.SetActive(true);
     }
 
-    IEnumerator ButtonDelay2()
-    {
-        yield return new WaitForSeconds(1f);
+    IEnumerator PlayButton() {
+        yield return new WaitForSeconds(.9f);
 
-        // This line will be executed after 10 seconds passed
+        // This line will be executed after .7 seconds passed
+        levelSelectMenu.gameObject.SetActive(true);
+    }
+
+    IEnumerator BackToMainButtonDelay()
+    {
+        yield return new WaitForSeconds(.7f);
+
+        // This line will be executed after .7 seconds passed
         playButton.gameObject.SetActive(true);
         quitButton.gameObject.SetActive(true);
         optionsButton.gameObject.SetActive(true);

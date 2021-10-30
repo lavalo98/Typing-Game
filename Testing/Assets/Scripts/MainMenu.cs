@@ -16,91 +16,35 @@ public class MainMenu : MonoBehaviour
     public GameObject[] mainMenuObjects;
     public GameObject[] optionsMenuObjects;
 
+    public CameraController mainCam;
+
     private void Start()
     {
-        mainMenuObjects = GameObject.FindGameObjectsWithTag("MenuEnemy");  
-    }
-
-    IEnumerator PlayTransition()
-    {
-        transition.SetTrigger("Start");
-
-        yield return new WaitForSeconds(transitionTime);
-
-        SceneManager.LoadScene("Level01");
+       
     }
 
     IEnumerator ToOptions()
     {
-        options.SetFloat("Speed", 1.0f);
-        options.PlayInFixedTime("cameraTransitionNewMenu",-1,0);
-        lightAnimator.SetFloat("Speed", 1.0f);
-        lightAnimator.PlayInFixedTime("dayToNight",-1,0);
+        mainCam.currentView = mainCam.views[2];
 
-        yield return new WaitForSeconds(.2f);
-
-        foreach (GameObject a in mainMenuObjects)
-        {
-            if (a.activeSelf == false)
-            {
-                a.SetActive(true);
-            }
-
-            if (a.activeSelf == true){
-                a.SetActive(false);
-            }
-        }
-
-        foreach (GameObject a in optionsMenuObjects)
-        {
-            if (a.activeSelf == false)
-            {
-                a.SetActive(true);
-            }
-            else
-            {
-                a.SetActive(false);
-            }
-        }
+        yield return new WaitForSeconds(0f);
     }
 
     IEnumerator BackToMain()
     {
-        options.SetFloat("Speed", -1.0f);
-        options.PlayInFixedTime("cameraTransitionNewMenu", -1, 1);
-        lightAnimator.SetFloat("Speed", -1.0f);
-        lightAnimator.PlayInFixedTime("dayToNight", -1, 1);
+        mainCam.currentView = mainCam.views[0];
 
-        yield return new WaitForSeconds(.2f);
-
-        foreach (GameObject a in mainMenuObjects)
-        {
-            if (a.activeSelf == false)
-            {
-                a.SetActive(true);
-            }
-            else
-            {
-                a.SetActive(false);
-            }
-        }
-
-        foreach (GameObject a in optionsMenuObjects)
-        {
-            if (a.activeSelf == false)
-            {
-                a.SetActive(true);
-            }
-            else
-            {
-                a.SetActive(false);
-            }
-        }
+        yield return new WaitForSeconds(0f);
     }
 
-    public void PlayGame()
-    {
-        StartCoroutine(PlayTransition());
+    IEnumerator ToLevelSelect() {
+        mainCam.currentView = mainCam.views[1];
+
+        yield return new WaitForSeconds(0f);
+    }
+
+    public void moveToLevelSelect() {
+        StartCoroutine(ToLevelSelect());
     }
 
     public void setOptionsMenu()
