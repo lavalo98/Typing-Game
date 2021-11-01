@@ -36,6 +36,6 @@ public class Trigger : MonoBehaviour
         spawner4.SetActive(false);
         GameObject.FindGameObjectWithTag("EnemyDespawner").GetComponent<DespawnEnemy>().wipeAllEnemy();
         GameObject.FindGameObjectWithTag("TimeTracker").GetComponent<TimeTracker>().playerDead = true;
-        GameObject.FindGameObjectWithTag("PlayFab").GetComponent<PlayFabManager>().SendLeaderboard(scoreForLeaderboard);
+        GameObject.FindGameObjectWithTag("PlayFab").GetComponent<PlayFabManagerLevels>().SendLeaderboard(scoreForLeaderboard);
     }
 }

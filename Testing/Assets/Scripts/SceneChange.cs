@@ -8,8 +8,13 @@ public class SceneChange : MonoBehaviour
     Ray ray;
     RaycastHit hit;
     public Animator transition;
+    public GameObject levelSelectMenu;
 
     public float transitionTime = 0f;
+
+    public void takeLevelSelectAway() {
+        levelSelectMenu.gameObject.SetActive(false);
+    }
 
     IEnumerator PlayTransitionLevel01() {
         transition.SetTrigger("Start");
@@ -27,6 +32,7 @@ public class SceneChange : MonoBehaviour
         ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out hit) && Input.GetMouseButton(0)) {
             if (hit.collider.name == "Level01") {
+                takeLevelSelectAway();
                 PlayGameLevel01();
             }
         }

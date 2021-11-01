@@ -15,16 +15,7 @@ public class CameraController : MonoBehaviour
     }
 
     private void Update() {
-        if (Input.GetKeyDown(KeyCode.A)) {
-            currentView = views[0];
-        }
-        if (Input.GetKeyDown(KeyCode.S)) {
-            currentView = views[1];
-        }
-        if (Input.GetKeyDown(KeyCode.D)) {
-            currentView = views[2];
-        }
-
+        
     }
 
     // Update is called once per frame

@@ -6,6 +6,6 @@ public class GetLeaderboard : MonoBehaviour
 {
     public void getLeaderboard()
     {
-        GameObject.FindGameObjectWithTag("PlayFab").GetComponent<PlayFabManager>().GetLeaderboard();
+        GameObject.FindGameObjectWithTag("PlayFab").GetComponent<PlayFabManagerLevels>().GetLeaderboard();
     }
 }

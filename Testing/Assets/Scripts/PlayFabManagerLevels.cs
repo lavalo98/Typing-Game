@@ -7,24 +7,21 @@ using System;
 using UnityEngine.UIElements;
 using TMPro;
 
-public class PlayFabManager : MonoBehaviour
+public class PlayFabManagerLevels : MonoBehaviour
 {
-    public GameObject usernameWindow;
-    public TMP_InputField nameInput;
+    public GameObject rowPrefab;
+    public Transform rowsParent;
 
     // Start is called before the first frame update
-    void Start()
-    {
+    void Start() {
         Login();
     }
 
-    void Awake()
-    {
-        
+    void Awake() {
+        DontDestroyOnLoad(gameObject);
     }
 
-    void Login()
-    {
+    void Login() {
         var request = new LoginWithCustomIDRequest {
             CustomId = SystemInfo.deviceUniqueIdentifier,
             CreateAccount = true,
@@ -35,40 +32,17 @@ public class PlayFabManager : MonoBehaviour
         PlayFabClientAPI.LoginWithCustomID(request, OnSuccess, OnError);
     }
 
-    void OnSuccess(LoginResult result)
-    {
+    void OnSuccess(LoginResult result) {
         Debug.Log("Successful login/account created!");
-        string name = null;
-        if(result.InfoResultPayload.PlayerProfile != null) {
-            name = result.InfoResultPayload.PlayerProfile.DisplayName;
-        }
-        if (name == null) {
-            usernameWindow.SetActive(true);
-        }
     }
 
-    public void SubmitNameButton() {
-        var request = new UpdateUserTitleDisplayNameRequest {
-            DisplayName = nameInput.text,
-        };
-        PlayFabClientAPI.UpdateUserTitleDisplayName(request, OnDisplayNameUpdate, OnError); 
-    }
-
-    void OnDisplayNameUpdate(UpdateUserTitleDisplayNameResult result) {
-        Debug.Log("Updated display name!");
-        usernameWindow.SetActive(false);
-    }
-
-    void OnError(PlayFabError error)
-    {
+    void OnError(PlayFabError error) {
         Debug.Log("Error while logging in/creating account!");
         Debug.Log(error.GenerateErrorReport());
     }
 
-    public void SendLeaderboard(int score)
-    {
-        var request = new UpdatePlayerStatisticsRequest
-        {
+    public void SendLeaderboard(int score) {
+        var request = new UpdatePlayerStatisticsRequest {
             Statistics = new List<StatisticUpdate>
             {
                 new StatisticUpdate
@@ -81,15 +55,12 @@ public class PlayFabManager : MonoBehaviour
         PlayFabClientAPI.UpdatePlayerStatistics(request, OnLeaderboardUpdate, OnError);
     }
 
-    void OnLeaderboardUpdate(UpdatePlayerStatisticsResult result)
-    {
+    void OnLeaderboardUpdate(UpdatePlayerStatisticsResult result) {
         Debug.Log("Successfull Leaderboard Sent");
     }
 
-    public void GetLeaderboard()
-    {
-        var request = new GetLeaderboardRequest
-        {
+    public void GetLeaderboard() {
+        var request = new GetLeaderboardRequest {
             StatisticName = "ScoreLeaderboard",
             StartPosition = 0,
             MaxResultsCount = 100
@@ -97,6 +68,20 @@ public class PlayFabManager : MonoBehaviour
         PlayFabClientAPI.GetLeaderboard(request, OnLeaderboardGet, OnError);
     }
 
-    void OnLeaderboardGet(GetLeaderboardResult result) { }
+    void OnLeaderboardGet(GetLeaderboardResult result) {
+        foreach (Transform item in rowsParent) {
+            Destroy(item.gameObject);
+        }
 
+        foreach (var item in result.Leaderboard) {
+
+            GameObject newGo = Instantiate(rowPrefab, rowsParent);
+            TextMeshProUGUI[] texts = newGo.GetComponentsInChildren<TextMeshProUGUI>();
+            texts[0].text = (item.Position + 1).ToString();
+            texts[1].text = item.DisplayName;
+            texts[2].text = item.StatValue.ToString();
+
+            Debug.Log(item.Position + " || " + item.PlayFabId + " || " + item.StatValue);
+        }
+    }
 }
