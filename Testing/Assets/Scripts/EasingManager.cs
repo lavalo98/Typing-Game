@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EasingManager : MonoBehaviour
-{
+public class EasingManager : MonoBehaviour {
 
     public GameObject levelSelect1;
     public GameObject levelSelect2;
@@ -17,8 +16,7 @@ public class EasingManager : MonoBehaviour
     public GameObject levelSelect10;
 
     // Start is called before the first frame update
-    void Start()
-    {
+    void Start() {
         LeanTween.moveY(levelSelect1, 6.44f, 2).setEaseInOutQuad().setLoopPingPong();
         LeanTween.moveY(levelSelect2, 6.44f, 2).setEaseInOutQuad().setLoopPingPong();
         LeanTween.moveY(levelSelect3, 6.44f, 2).setEaseInOutQuad().setLoopPingPong();
@@ -32,8 +30,7 @@ public class EasingManager : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        
+    void Update() {
+
     }
 }
