@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.AI;
 
 public class Typer : MonoBehaviour
 {
@@ -16,6 +17,8 @@ public class Typer : MonoBehaviour
     private string currentWord = string.Empty;
     private string displayWord = string.Empty;
     public Destroyer myDestroyer;
+    public TypingSoundsManager clickSound;
+    public NavMeshAgent agent;
     private int charIndex = 1;
     private int charWrong = 0;
     private int wordScore = 0;
@@ -89,6 +92,9 @@ public class Typer : MonoBehaviour
 
     private void removeLetter()
     {
+        clickSound.Play = true;
+        clickSound.playClick();
+        clickSound.Play = false;
         coloredLetter = "<color=#000000>" + currentWord.Substring(0,charIndex) + "</color>";
         string newString = remainingWord.Remove(0, 1);
         setRemainingWord(newString);
@@ -120,6 +126,16 @@ public class Typer : MonoBehaviour
         }
         GameObject.FindGameObjectWithTag("WPMTracker").GetComponent<WPMTracker>().charactersWrong += charWrong;
         GameObject.FindGameObjectWithTag("WPMTracker").GetComponent<WPMTracker>().completedCharacters += currentWord.Length;
+    }
+
+    IEnumerator stunEnemy() {
+        agent.speed = 0f;
+        yield return new WaitForSeconds(.5f);
+        agent.speed = .5f;
+    }
+
+    public void stunEnemyUse() {
+        StartCoroutine(stunEnemy());
     }
 
     public bool isWordComplete()

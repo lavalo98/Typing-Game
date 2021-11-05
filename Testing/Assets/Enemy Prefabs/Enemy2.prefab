@@ -67,8 +67,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: New Text
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
-  m_sharedMaterial: {fileID: 2140032, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 70e80c857cf10e34dbcac416e1671bc1, type: 2}
+  m_sharedMaterial: {fileID: -4932242200191955218, guid: 70e80c857cf10e34dbcac416e1671bc1, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -364,6 +364,8 @@ MonoBehaviour:
   WPMTracker: {fileID: 0}
   wordOutput: {fileID: 1122446870989515644}
   myDestroyer: {fileID: 4265658308856026336}
+  clickSound: {fileID: 6858337957482714156, guid: c944e73c7d8c266438a13d2121db2241, type: 3}
+  agent: {fileID: 0}
 --- !u!114 &5109127805463045064
 MonoBehaviour:
   m_ObjectHideFlags: 0

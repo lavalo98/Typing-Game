@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class TwoWordTyper : MonoBehaviour
 {
@@ -14,6 +15,8 @@ public class TwoWordTyper : MonoBehaviour
     private string secondWord = string.Empty;
     private string displayWord = string.Empty;
     public Destroyer myDestroyer;
+    public NavMeshAgent agent;
+    public TypingSoundsManager clickSound;
     private int charIndex = 1;
     public int charWrong = 0;
     private int secondWordCheck = 0;
@@ -77,6 +80,9 @@ public class TwoWordTyper : MonoBehaviour
     {
         if (correctLetter(typedLetter))
         {
+            clickSound.Play = true;
+            clickSound.playClick();
+            clickSound.Play = false;
             removeLetter();
 
             if (isWordComplete())
@@ -145,6 +151,16 @@ public class TwoWordTyper : MonoBehaviour
         charWrong = 0;
     }
 
+    IEnumerator stunEnemy() {
+        agent.speed = 0f;
+        yield return new WaitForSeconds(.9f);
+        agent.speed = .5f;
+    }
+
+    public void stunEnemyUse() {
+        StartCoroutine(stunEnemy());
+    }
+
 
     public bool isWordComplete()
     {
@@ -175,6 +191,7 @@ public class TwoWordTyper : MonoBehaviour
                 GameObject.FindGameObjectWithTag("ResetChar").GetComponent<ResetCharWrongAll>().wipeAllOneCharWrong();
                 GameObject.FindGameObjectWithTag("ResetChar").GetComponent<ResetCharWrongAll>().wipeAllTwoCharWrong();
                 GameObject.FindGameObjectWithTag("ResetChar").GetComponent<ResetCharWrongAll>().wipeAllThreeCharWrong();
+                stunEnemyUse();
                 return false;
             }
             wordScore = 10 * secondWord.Length;

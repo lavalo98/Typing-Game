@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class threeWordTyper : MonoBehaviour
 {
@@ -16,6 +17,8 @@ public class threeWordTyper : MonoBehaviour
     private string thirdWord = string.Empty;
     private string displayWord = string.Empty;
     public Destroyer myDestroyer;
+    public TypingSoundsManager clickSound;
+    public NavMeshAgent agent;
     private int charIndex = 1;
     public int charWrong = 0;
     private int wordCheck = 0;
@@ -96,6 +99,9 @@ public class threeWordTyper : MonoBehaviour
     {
         if (correctLetter(typedLetter))
         {
+            clickSound.Play = true;
+            clickSound.playClick();
+            clickSound.Play = false;
             removeLetter();
 
             if (isWordComplete())
@@ -172,6 +178,16 @@ public class threeWordTyper : MonoBehaviour
 
     }
 
+    IEnumerator stunEnemy() {
+        agent.speed = 0f;
+        yield return new WaitForSeconds(.9f);
+        agent.speed = .5f;
+    }
+
+    public void stunEnemyUse() {
+        StartCoroutine(stunEnemy());
+    }
+
     public bool isWordComplete()
     {
         if (remainingWord.Length == 0)
@@ -202,6 +218,7 @@ public class threeWordTyper : MonoBehaviour
                 GameObject.FindGameObjectWithTag("ResetChar").GetComponent<ResetCharWrongAll>().wipeAllThreeCharWrong();
                 charIndex = 1;
                 charWrong = 0;
+                stunEnemyUse();
                 return false;
             }else if (wordCheck == 1)
             {
@@ -228,6 +245,7 @@ public class threeWordTyper : MonoBehaviour
                 GameObject.FindGameObjectWithTag("ResetChar").GetComponent<ResetCharWrongAll>().wipeAllThreeCharWrong();
                 charIndex = 1;
                 charWrong = 0;
+                stunEnemyUse();
                 return false;
             }
             wordScore = 10 * thirdWord.Length;
