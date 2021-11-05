@@ -21,5 +21,8 @@ public class ParticleSystemTrigger : MonoBehaviour
             FloatingTextController.CreateFloatingText("+" + GameObject.FindGameObjectWithTag("Score Tracker").GetComponent<ScoreTracker>().popUpTextPoints.ToString(), transform);
             Instantiate(a, transform.position, Quaternion.identity);
         }
+        if (other.tag == "Player") {
+            Instantiate(a, transform.position, Quaternion.identity);
+        }
     }
 }

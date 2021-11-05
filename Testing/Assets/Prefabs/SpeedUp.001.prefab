@@ -14,9 +14,10 @@ GameObject:
   - component: {fileID: 1153707026136327023}
   - component: {fileID: 4520496195564223803}
   - component: {fileID: 8182643365293221075}
+  - component: {fileID: 2649682662563429230}
   m_Layer: 0
   m_Name: SpeedUp.001
-  m_TagString: Untagged
+  m_TagString: SlowdownPowerUp
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -126,3 +127,15 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -2824607905474613174, guid: d0576698619a2f74c8b79bcaf791fb29, type: 3}
+--- !u!114 &2649682662563429230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7266591788065257742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d001e97c89753be4c8882793d74a2c28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

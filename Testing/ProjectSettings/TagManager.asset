@@ -31,6 +31,8 @@ TagManager:
   - TimeElapsedGameOver
   - PlayFab
   - OptionsEnemy
+  - SlowdownPowerUp
+  - Nuke
   layers:
   - Default
   - TransparentFX

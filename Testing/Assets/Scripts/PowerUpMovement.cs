@@ -10,11 +10,6 @@ public class PowerUpMovement : MonoBehaviour
         LeanTween.moveY(gameObject, 3f, 2).setEaseInOutQuad().setLoopPingPong();
     }
 
-    void OnMouseDown() {
-        Destroy(gameObject);
-        Debug.Log("Clciked");
-    }
-
     // Update is called once per frame
     void Update() {
        
