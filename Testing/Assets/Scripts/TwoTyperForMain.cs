@@ -169,7 +169,6 @@ public class TwoTyperForMain : MonoBehaviour
                 GameObject.FindGameObjectWithTag("WPMTracker").GetComponent<WPMTracker>().completedCharacters += currentWord.Length;
                 setRemainingWord(secondWord);
                 secondWordCheck++;
-                Destroy(wordOutput);
                 secondOutput.fontSize = 16;
                 charIndex = 1;
                 GameObject.FindGameObjectWithTag("ResetChar").GetComponent<ResetCharWrongAll>().wipeAllOneCharWrong();

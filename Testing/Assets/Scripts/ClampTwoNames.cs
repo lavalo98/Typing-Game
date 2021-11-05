@@ -21,12 +21,7 @@ public class ClampTwoNames : MonoBehaviour
     {
         Vector3 namePos = Camera.main.WorldToScreenPoint(this.transform.position);
         nameLabel.rectTransform.position = namePos;
-        
-        if(nameLabel != null)
-        {
-            namePos.y += 15;
-        }
-
+     
         nameLabel2.rectTransform.position = namePos;
     }
 }

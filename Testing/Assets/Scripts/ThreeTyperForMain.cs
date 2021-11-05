@@ -195,7 +195,7 @@ public class ThreeTyperForMain : MonoBehaviour
                 GameObject.FindGameObjectWithTag("WPMTracker").GetComponent<WPMTracker>().completedCharacters += currentWord.Length;
                 setRemainingWord(secondWord);
                 wordCheck++;
-                Destroy(wordOutput);
+                //Destroy(wordOutput);
                 secondOutput.fontSize = 16;
                 thirdOutput.fontSize = 12;
                 GameObject.FindGameObjectWithTag("ResetChar").GetComponent<ResetCharWrongAll>().wipeAllOneCharWrong();
@@ -223,7 +223,6 @@ public class ThreeTyperForMain : MonoBehaviour
                 GameObject.FindGameObjectWithTag("WPMTracker").GetComponent<WPMTracker>().completedCharacters += secondWord.Length;
                 setRemainingWord(thirdWord);
                 wordCheck++;
-                Destroy(secondOutput);
                 thirdOutput.fontSize = 16;
                 GameObject.FindGameObjectWithTag("ResetChar").GetComponent<ResetCharWrongAll>().wipeAllOneCharWrong();
                 GameObject.FindGameObjectWithTag("ResetChar").GetComponent<ResetCharWrongAll>().wipeAllTwoCharWrong();

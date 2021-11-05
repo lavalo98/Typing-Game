@@ -8,8 +8,6 @@ public class threeWordTyper : MonoBehaviour
 {
     public WordBank wordBank = null;
     public TextMeshProUGUI wordOutput = null;
-    public TextMeshProUGUI secondOutput = null;
-    public TextMeshProUGUI thirdOutput = null;
     private string coloredLetter = null;
     private string remainingWord = string.Empty;
     private string currentWord = string.Empty;
@@ -18,6 +16,7 @@ public class threeWordTyper : MonoBehaviour
     private string displayWord = string.Empty;
     public Destroyer myDestroyer;
     public TypingSoundsManager clickSound;
+    public float health = 100f;
     public NavMeshAgent agent;
     private int charIndex = 1;
     public int charWrong = 0;
@@ -65,20 +64,6 @@ public class threeWordTyper : MonoBehaviour
     {
         displayWord = newString;
         wordOutput.text = displayWord;
-        secondOutput.text = secondWord;
-        thirdOutput.text = thirdWord;
-    }
-
-    private void setSecondDisplayWord(string newString)
-    {
-        displayWord = newString;
-        secondOutput.text = displayWord;
-    }
-
-    private void setThirdDisplayWord(string newString)
-    {
-        displayWord = newString;
-        thirdOutput.text = displayWord;
     }
 
     // Update is called once per frame
@@ -147,35 +132,12 @@ public class threeWordTyper : MonoBehaviour
 
     private void removeLetter()
     {
-        if (wordCheck == 0)
-        {
-            coloredLetter = "<color=#000000>" + currentWord.Substring(0, charIndex) + "</color>";
+            coloredLetter = "<color=#000000f0>" + currentWord.Substring(0, charIndex) + "</color>";
             string newString = remainingWord.Remove(0, 1);
             setRemainingWord(newString);
             coloredLetter += newString;
             setDisplayWord(coloredLetter);
             charIndex++;
-        }
-        else if(wordCheck == 1)
-        {
-            coloredLetter = "<color=#000000>" + secondWord.Substring(0, charIndex) + "</color>";
-            string newString = remainingWord.Remove(0, 1);
-            setRemainingWord(newString);
-            coloredLetter += newString;
-            setSecondDisplayWord(coloredLetter);
-            charIndex++;
-        }else if(wordCheck == 2)
-        {
-            coloredLetter = "<color=#000000>" + thirdWord.Substring(0, charIndex) + "</color>";
-            string newString = remainingWord.Remove(0, 1);
-            setRemainingWord(newString);
-            coloredLetter += newString;
-            setThirdDisplayWord(coloredLetter);
-            charIndex++;
-        }
-
-
-
     }
 
     IEnumerator stunEnemy() {
@@ -209,15 +171,15 @@ public class threeWordTyper : MonoBehaviour
                 GameObject.FindGameObjectWithTag("WPMTracker").GetComponent<WPMTracker>().charactersWrong += charWrong;
                 GameObject.FindGameObjectWithTag("WPMTracker").GetComponent<WPMTracker>().completedCharacters += currentWord.Length;
                 setRemainingWord(secondWord);
+                currentWord = secondWord;
                 wordCheck++;
-                Destroy(wordOutput);
-                secondOutput.fontSize = 16;
-                thirdOutput.fontSize = 12;
+                wordOutput.text = secondWord;
                 GameObject.FindGameObjectWithTag("ResetChar").GetComponent<ResetCharWrongAll>().wipeAllOneCharWrong();
                 GameObject.FindGameObjectWithTag("ResetChar").GetComponent<ResetCharWrongAll>().wipeAllTwoCharWrong();
                 GameObject.FindGameObjectWithTag("ResetChar").GetComponent<ResetCharWrongAll>().wipeAllThreeCharWrong();
                 charIndex = 1;
                 charWrong = 0;
+                health -= 34;
                 stunEnemyUse();
                 return false;
             }else if (wordCheck == 1)
@@ -237,14 +199,15 @@ public class threeWordTyper : MonoBehaviour
                 GameObject.FindGameObjectWithTag("WPMTracker").GetComponent<WPMTracker>().charactersWrong += charWrong;
                 GameObject.FindGameObjectWithTag("WPMTracker").GetComponent<WPMTracker>().completedCharacters += secondWord.Length;
                 setRemainingWord(thirdWord);
+                currentWord = thirdWord;
                 wordCheck++;
-                Destroy(secondOutput);
-                thirdOutput.fontSize = 16;
+                wordOutput.text = thirdWord;
                 GameObject.FindGameObjectWithTag("ResetChar").GetComponent<ResetCharWrongAll>().wipeAllOneCharWrong();
                 GameObject.FindGameObjectWithTag("ResetChar").GetComponent<ResetCharWrongAll>().wipeAllTwoCharWrong();
                 GameObject.FindGameObjectWithTag("ResetChar").GetComponent<ResetCharWrongAll>().wipeAllThreeCharWrong();
                 charIndex = 1;
                 charWrong = 0;
+                health -= 33;
                 stunEnemyUse();
                 return false;
             }
@@ -269,6 +232,7 @@ public class threeWordTyper : MonoBehaviour
             GameObject.FindGameObjectWithTag("ResetChar").GetComponent<ResetCharWrongAll>().wipeAllOneCharWrong();
             GameObject.FindGameObjectWithTag("ResetChar").GetComponent<ResetCharWrongAll>().wipeAllTwoCharWrong();
             GameObject.FindGameObjectWithTag("ResetChar").GetComponent<ResetCharWrongAll>().wipeAllThreeCharWrong();
+            health -= 33;
             return false;
         }
         else

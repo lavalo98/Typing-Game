@@ -16,6 +16,7 @@ public class Typer : MonoBehaviour
     private string remainingWord = string.Empty;
     private string currentWord = string.Empty;
     private string displayWord = string.Empty;
+    public float health = 100f;
     public Destroyer myDestroyer;
     public TypingSoundsManager clickSound;
     public NavMeshAgent agent;
@@ -61,6 +62,9 @@ public class Typer : MonoBehaviour
     {
         if (correctLetter(typedLetter))
         {
+            clickSound.Play = true;
+            clickSound.playClick();
+            clickSound.Play = false;
             removeLetter();
 
             if (isWordComplete())
@@ -92,10 +96,7 @@ public class Typer : MonoBehaviour
 
     private void removeLetter()
     {
-        clickSound.Play = true;
-        clickSound.playClick();
-        clickSound.Play = false;
-        coloredLetter = "<color=#000000>" + currentWord.Substring(0,charIndex) + "</color>";
+        coloredLetter = "<color=#000000f0>" + currentWord.Substring(0,charIndex) + "</color>";
         string newString = remainingWord.Remove(0, 1);
         setRemainingWord(newString);
         coloredLetter += newString;
@@ -145,6 +146,7 @@ public class Typer : MonoBehaviour
             keepScore();
             gameObject.tag = "Marked for death";
             GameObject.FindGameObjectWithTag("Projectile").GetComponent<attackEnemyMovement>().playAudio();
+            health = 0;
             return false;
         }
         else

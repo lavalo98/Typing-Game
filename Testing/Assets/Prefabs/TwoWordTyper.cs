@@ -8,7 +8,6 @@ public class TwoWordTyper : MonoBehaviour
 {
     public WordBank wordBank = null;
     public TextMeshProUGUI wordOutput = null;
-    public TextMeshProUGUI secondOutput = null;
     private string coloredLetter = null;
     private string remainingWord = string.Empty;
     private string currentWord = string.Empty;
@@ -17,6 +16,7 @@ public class TwoWordTyper : MonoBehaviour
     public Destroyer myDestroyer;
     public NavMeshAgent agent;
     public TypingSoundsManager clickSound;
+    public float health = 100f;
     private int charIndex = 1;
     public int charWrong = 0;
     private int secondWordCheck = 0;
@@ -53,13 +53,6 @@ public class TwoWordTyper : MonoBehaviour
     {
         displayWord = newString;
         wordOutput.text = displayWord;
-        secondOutput.text = secondWord;
-    }
-
-    private void setSecondDisplayWord(string newString)
-    {
-        displayWord = newString;
-        secondOutput.text = displayWord;
     }
 
     // Update is called once per frame
@@ -123,27 +116,12 @@ public class TwoWordTyper : MonoBehaviour
 
     private void removeLetter()
     {
-        if(secondWordCheck == 0)
-        {
-            coloredLetter = "<color=#000000>" + currentWord.Substring(0, charIndex) + "</color>";
+            coloredLetter = "<color=#000000f0>" + currentWord.Substring(0, charIndex) + "</color>";
             string newString = remainingWord.Remove(0, 1);
             setRemainingWord(newString);
             coloredLetter += newString;
             setDisplayWord(coloredLetter);
             charIndex++;
-        }
-        else
-        {
-            coloredLetter = "<color=#000000>" + secondWord.Substring(0, charIndex) + "</color>";
-            string newString = remainingWord.Remove(0, 1);
-            setRemainingWord(newString);
-            coloredLetter += newString;
-            setSecondDisplayWord(coloredLetter);
-            charIndex++;
-        }
-
-
-        
     }
 
     public void resetCharWrong()
@@ -184,10 +162,11 @@ public class TwoWordTyper : MonoBehaviour
                 GameObject.FindGameObjectWithTag("WPMTracker").GetComponent<WPMTracker>().charactersWrong += charWrong;
                 GameObject.FindGameObjectWithTag("WPMTracker").GetComponent<WPMTracker>().completedCharacters += currentWord.Length;
                 setRemainingWord(secondWord);
+                currentWord = secondWord;
                 secondWordCheck++;
-                Destroy(wordOutput);
-                secondOutput.fontSize = 16;
+                wordOutput.text = secondWord;
                 charIndex = 1;
+                health -= 50f;
                 GameObject.FindGameObjectWithTag("ResetChar").GetComponent<ResetCharWrongAll>().wipeAllOneCharWrong();
                 GameObject.FindGameObjectWithTag("ResetChar").GetComponent<ResetCharWrongAll>().wipeAllTwoCharWrong();
                 GameObject.FindGameObjectWithTag("ResetChar").GetComponent<ResetCharWrongAll>().wipeAllThreeCharWrong();
@@ -209,6 +188,7 @@ public class TwoWordTyper : MonoBehaviour
             {
                 GameObject.FindGameObjectWithTag("Score Tracker").GetComponent<ScoreTracker>().wordStreak = 0;
             }
+            health -= 50f;
             GameObject.FindGameObjectWithTag("WPMTracker").GetComponent<WPMTracker>().charactersWrong += charWrong;
             GameObject.FindGameObjectWithTag("WPMTracker").GetComponent<WPMTracker>().completedCharacters += secondWord.Length;
             GameObject.FindGameObjectWithTag("ResetChar").GetComponent<ResetCharWrongAll>().wipeAllOneCharWrong();

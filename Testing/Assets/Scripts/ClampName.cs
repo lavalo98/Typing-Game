@@ -8,6 +8,7 @@ public class ClampName : MonoBehaviour
 {
 
     public TextMeshProUGUI nameLabel;
+    public Image healthBar;
 
     // Start is called before the first frame update
     void Start()
@@ -19,6 +20,8 @@ public class ClampName : MonoBehaviour
     void Update()
     {
         Vector3 namePos = Camera.main.WorldToScreenPoint(this.transform.position);
+        healthBar.rectTransform.position = namePos;
+        namePos.y = namePos.y + 10f;
         nameLabel.rectTransform.position = namePos;
     }
 }
