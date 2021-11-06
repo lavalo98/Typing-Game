@@ -6,14 +6,15 @@ using UnityEngine.AI;
 
 public class threeWordTyper : MonoBehaviour
 {
-    public WordBank wordBank = null;
+    public WordBank wordBank;
     public TextMeshProUGUI wordOutput = null;
     private string coloredLetter = null;
     private string remainingWord = string.Empty;
-    private string currentWord = string.Empty;
+    public string currentWord = string.Empty;
     private string secondWord = string.Empty;
     private string thirdWord = string.Empty;
     private string displayWord = string.Empty;
+    public projectileSpawner projectile;
     public Destroyer myDestroyer;
     public TypingSoundsManager clickSound;
     public float health = 100f;
@@ -27,6 +28,8 @@ public class threeWordTyper : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
+        projectile = GameObject.FindGameObjectWithTag("ProjectileSpawner").GetComponent<projectileSpawner>();
+        wordBank = GameObject.FindGameObjectWithTag("WordBankManager").GetComponent<WordBank>();
         FloatingTextController.Initialize();
         setSecondWord();
         setThirdWord();
@@ -35,17 +38,23 @@ public class threeWordTyper : MonoBehaviour
 
     private void setSecondWord()
     {
-        secondWord = wordBank.getWord();
+        while (secondWord == string.Empty) {
+            secondWord = wordBank.getWord();
+        }
     }
     
     private void setThirdWord()
     {
-        thirdWord = wordBank.getWord();
+        while (thirdWord == string.Empty) {
+            thirdWord = wordBank.getWord();
+        }
     }
 
     private void setCurrentWord()
     {
-        currentWord = wordBank.getWord();
+        while (currentWord == string.Empty) {
+            currentWord = wordBank.getWord();
+        }
         setRemainingWord(currentWord);
         setDisplayWord(currentWord);
     }
@@ -211,6 +220,7 @@ public class threeWordTyper : MonoBehaviour
                 stunEnemyUse();
                 return false;
             }
+            gameObject.tag = "Marked for death";
             wordScore = 10 * thirdWord.Length;
             wordScore -= (10 * charWrong);
             cumulativeScore += wordScore;
@@ -227,7 +237,7 @@ public class threeWordTyper : MonoBehaviour
             }
             GameObject.FindGameObjectWithTag("WPMTracker").GetComponent<WPMTracker>().charactersWrong += charWrong;
             GameObject.FindGameObjectWithTag("WPMTracker").GetComponent<WPMTracker>().completedCharacters += thirdWord.Length;
-            gameObject.tag = "Marked for death";
+            projectile.spawnProjectile();
             GameObject.FindGameObjectWithTag("Projectile").GetComponent<attackEnemyMovement>().playAudio();
             GameObject.FindGameObjectWithTag("ResetChar").GetComponent<ResetCharWrongAll>().wipeAllOneCharWrong();
             GameObject.FindGameObjectWithTag("ResetChar").GetComponent<ResetCharWrongAll>().wipeAllTwoCharWrong();

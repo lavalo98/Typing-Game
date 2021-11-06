@@ -35,6 +35,8 @@ TagManager:
   - Nuke
   - TypeSound
   - TypeSoundManager
+  - ProjectileSpawner
+  - WordBankManager
   layers:
   - Default
   - TransparentFX

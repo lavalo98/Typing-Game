@@ -12,9 +12,10 @@ public class Typer : MonoBehaviour
     public WordBank wordBank = null;
     public WPMTracker WPMTracker = null;
     public TextMeshProUGUI wordOutput = null;
+    public projectileSpawner projectile;
     private string coloredLetter = null;
     private string remainingWord = string.Empty;
-    private string currentWord = string.Empty;
+    public string currentWord = string.Empty;
     private string displayWord = string.Empty;
     public float health = 100f;
     public Destroyer myDestroyer;
@@ -27,13 +28,17 @@ public class Typer : MonoBehaviour
 
     // Start is called before the first frame update
     private void Start() {
+        projectile = GameObject.FindGameObjectWithTag("ProjectileSpawner").GetComponent<projectileSpawner>();
+        wordBank = GameObject.FindGameObjectWithTag("WordBankManager").GetComponent<WordBank>();
         setCurrentWord();
         FloatingTextController.Initialize();
     }
 
     private void setCurrentWord()
     {
-        currentWord = wordBank.getWord();
+        while(currentWord == string.Empty) {
+            currentWord = wordBank.getWord();
+        }
         setRemainingWord(currentWord);
         setDisplayWord(currentWord);
     }
@@ -109,26 +114,6 @@ public class Typer : MonoBehaviour
         charWrong = 0;
     }
 
-    private void keepScore()
-    {
-        wordScore = 10 * currentWord.Length;
-        wordScore -= (10 * charWrong);
-        //Debug.Log("Base Word Score: " + wordScore + "     Length of word: " + currentWord.Length + "         charWrong" + charWrong);
-        //Debug.Log("Letters typed wrong: " + wrongLetters);
-        GameObject.FindGameObjectWithTag("Score Tracker").GetComponent<ScoreTracker>().beforeManipulationScore = wordScore;
-        GameObject.FindGameObjectWithTag("Score Tracker").GetComponent<ScoreTracker>().scoreFromWordAfterManipulation(GameObject.FindGameObjectWithTag("Score Tracker").GetComponent<ScoreTracker>().wordStreak);
-        if (charWrong == 0)
-        {
-            GameObject.FindGameObjectWithTag("Score Tracker").GetComponent<ScoreTracker>().wordStreak++;
-        }
-        else
-        {
-            GameObject.FindGameObjectWithTag("Score Tracker").GetComponent<ScoreTracker>().wordStreak = 0;
-        }
-        GameObject.FindGameObjectWithTag("WPMTracker").GetComponent<WPMTracker>().charactersWrong += charWrong;
-        GameObject.FindGameObjectWithTag("WPMTracker").GetComponent<WPMTracker>().completedCharacters += currentWord.Length;
-    }
-
     IEnumerator stunEnemy() {
         agent.speed = 0f;
         yield return new WaitForSeconds(.5f);
@@ -143,10 +128,23 @@ public class Typer : MonoBehaviour
     {
         if(remainingWord.Length == 0)
         {
-            keepScore();
             gameObject.tag = "Marked for death";
-            GameObject.FindGameObjectWithTag("Projectile").GetComponent<attackEnemyMovement>().playAudio();
+            wordScore = 10 * currentWord.Length;
+            wordScore -= (10 * charWrong);
+            //Debug.Log("Base Word Score: " + wordScore + "     Length of word: " + currentWord.Length + "         charWrong" + charWrong);
+            //Debug.Log("Letters typed wrong: " + wrongLetters);
+            GameObject.FindGameObjectWithTag("Score Tracker").GetComponent<ScoreTracker>().beforeManipulationScore = wordScore;
+            GameObject.FindGameObjectWithTag("Score Tracker").GetComponent<ScoreTracker>().scoreFromWordAfterManipulation(GameObject.FindGameObjectWithTag("Score Tracker").GetComponent<ScoreTracker>().wordStreak);
+            if (charWrong == 0) {
+                GameObject.FindGameObjectWithTag("Score Tracker").GetComponent<ScoreTracker>().wordStreak++;
+            }
+            else {
+                GameObject.FindGameObjectWithTag("Score Tracker").GetComponent<ScoreTracker>().wordStreak = 0;
+            }
+            GameObject.FindGameObjectWithTag("WPMTracker").GetComponent<WPMTracker>().charactersWrong += charWrong;
+            GameObject.FindGameObjectWithTag("WPMTracker").GetComponent<WPMTracker>().completedCharacters += currentWord.Length;
             health = 0;
+            GameObject.FindGameObjectWithTag("Projectile").GetComponent<attackEnemyMovement>().playAudio();
             return false;
         }
         else

@@ -4,32 +4,26 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ClampName : MonoBehaviour
-{
 
+public class ClampMainMenu : MonoBehaviour
+{
     public TextMeshProUGUI nameLabel;
-    public Image healthBar;
 
     // Start is called before the first frame update
-    void Start()
-    {
+    void Start() {
 
     }
 
     private void Awake() {
         nameLabel.enabled = false;
-        healthBar.enabled = false;
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update() {
         Vector3 namePos = Camera.main.WorldToScreenPoint(this.transform.position);
-        healthBar.rectTransform.position = namePos;
         namePos.y = namePos.y + 10f;
         nameLabel.rectTransform.position = namePos;
 
         nameLabel.enabled = true;
-        healthBar.enabled = true;
     }
 }

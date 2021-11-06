@@ -13,6 +13,7 @@ public class Trigger : MonoBehaviour
     public GameObject spawner2;
     public GameObject spawner3;
     public GameObject spawner4;
+    public GameObject[] allProjectiles;
     private int scoreForLeaderboard;
     public int livesLeft;
 
@@ -27,6 +28,7 @@ public class Trigger : MonoBehaviour
     private void Update()
     {
         scoreForLeaderboard = GameObject.FindGameObjectWithTag("Score Tracker").GetComponent<ScoreTracker>().score;
+        allProjectiles = GameObject.FindGameObjectsWithTag("Projectile");
     }
 
     private void OnTriggerEnter(Collider other)
@@ -37,6 +39,9 @@ public class Trigger : MonoBehaviour
             livesOnScreen.text = livesLeft.ToString();
         }
         else {
+            foreach (GameObject projectile in allProjectiles) {
+                Destroy(projectile);
+            }
             GameObject.FindGameObjectWithTag("WPMTracker").GetComponent<WPMTracker>().keepTrack = false;
             gameOver.gameObject.SetActive(true);
             wordLayer.gameObject.SetActive(false);

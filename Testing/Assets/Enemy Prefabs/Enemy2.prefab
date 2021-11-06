@@ -349,7 +349,6 @@ GameObject:
   - component: {fileID: 778744708109946378}
   - component: {fileID: 913586050434248887}
   - component: {fileID: 6382422783066277170}
-  - component: {fileID: 5109127805463045064}
   - component: {fileID: 4265658308856026336}
   - component: {fileID: 3306552619858525814}
   - component: {fileID: 8052375809465467474}
@@ -453,26 +452,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c9ffd41380b1e74fbce0b91eea3a954, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wordBank: {fileID: 5109127805463045064}
+  wordBank: {fileID: 0}
   WPMTracker: {fileID: 0}
   wordOutput: {fileID: 1122446870989515644}
+  projectile: {fileID: 0}
   health: 100
   myDestroyer: {fileID: 4265658308856026336}
   clickSound: {fileID: 6858337957482714156, guid: c944e73c7d8c266438a13d2121db2241, type: 3}
   agent: {fileID: 0}
---- !u!114 &5109127805463045064
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6134954197992160099}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: effe64522cf647f4d857f77c65871391, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  checkDiff: {fileID: 0}
 --- !u!114 &4265658308856026336
 MonoBehaviour:
   m_ObjectHideFlags: 0

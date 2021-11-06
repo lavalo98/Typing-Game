@@ -15,6 +15,10 @@ public class WordBank : MonoBehaviour
 
     private float currentDifficulty;
 
+    public string[] listOfUseableWords;
+
+    string newWord = string.Empty;
+
     public List<List<string>> listOfWordLists = new List<List<string>>(); // List of where the words are written to
     
     
@@ -217,9 +221,9 @@ public class WordBank : MonoBehaviour
 
     public string getWord()
     {
-        string newWord = string.Empty;
+        newWord = string.Empty;
 
-        Start:
+    Start:
 
         random100();
 
