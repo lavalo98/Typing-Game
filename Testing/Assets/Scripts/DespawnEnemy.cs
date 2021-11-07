@@ -28,21 +28,27 @@ public class DespawnEnemy : MonoBehaviour
         if(oneEnemies != null) {
             foreach (GameObject enemy in oneEnemies) {
                 yield return new WaitForSeconds(.2f);
-                enemy.GetComponent<gameOverKillEnemy>().selfDestruct();
+                if(enemy != null) {
+                    enemy.GetComponent<gameOverKillEnemy>().selfDestruct();
+                }
             }
         }
 
         if (twoEnemies != null) {
             foreach (GameObject twoEnemy in twoEnemies) {
                 yield return new WaitForSeconds(.2f);
-                twoEnemy.GetComponent<gameOverKillEnemy>().selfDestruct();
+                if (twoEnemy != null) {
+                    twoEnemy.GetComponent<gameOverKillEnemy>().selfDestruct();
+                }
             }
         }
 
         if (threeEnemies != null) {
             foreach (GameObject threeEnemy in threeEnemies) {
                 yield return new WaitForSeconds(.2f);
-                threeEnemy.GetComponent<gameOverKillEnemy>().selfDestruct();
+                if (threeEnemy != null) {
+                    threeEnemy.GetComponent<gameOverKillEnemy>().selfDestruct();
+                }
             }
         }        
     }

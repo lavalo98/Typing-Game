@@ -23,6 +23,7 @@ public class Typer : MonoBehaviour
     public NavMeshAgent agent;
     private int charIndex = 1;
     private int charWrong = 0;
+    private int totalCharWrong = 0;
     private int wordScore = 0;
     string wrongLetters;
 
@@ -131,18 +132,21 @@ public class Typer : MonoBehaviour
             gameObject.tag = "Marked for death";
             wordScore = 10 * currentWord.Length;
             wordScore -= (10 * charWrong);
+            totalCharWrong += charWrong;
+            //Debug.Log(currentWord.ToUpper());
             //Debug.Log("Base Word Score: " + wordScore + "     Length of word: " + currentWord.Length + "         charWrong" + charWrong);
             //Debug.Log("Letters typed wrong: " + wrongLetters);
-            GameObject.FindGameObjectWithTag("Score Tracker").GetComponent<ScoreTracker>().beforeManipulationScore = wordScore;
-            GameObject.FindGameObjectWithTag("Score Tracker").GetComponent<ScoreTracker>().scoreFromWordAfterManipulation(GameObject.FindGameObjectWithTag("Score Tracker").GetComponent<ScoreTracker>().wordStreak);
-            if (charWrong == 0) {
+            if (totalCharWrong == 0) {
                 GameObject.FindGameObjectWithTag("Score Tracker").GetComponent<ScoreTracker>().wordStreak++;
             }
             else {
                 GameObject.FindGameObjectWithTag("Score Tracker").GetComponent<ScoreTracker>().wordStreak = 0;
             }
+            GameObject.FindGameObjectWithTag("Score Tracker").GetComponent<ScoreTracker>().beforeManipulationScore = wordScore;
+            GameObject.FindGameObjectWithTag("Score Tracker").GetComponent<ScoreTracker>().scoreFromWordAfterManipulation(GameObject.FindGameObjectWithTag("Score Tracker").GetComponent<ScoreTracker>().wordStreak);
             GameObject.FindGameObjectWithTag("WPMTracker").GetComponent<WPMTracker>().charactersWrong += charWrong;
             GameObject.FindGameObjectWithTag("WPMTracker").GetComponent<WPMTracker>().completedCharacters += currentWord.Length;
+            projectile.spawnProjectile();
             health = 0;
             GameObject.FindGameObjectWithTag("Projectile").GetComponent<attackEnemyMovement>().playAudio();
             return false;

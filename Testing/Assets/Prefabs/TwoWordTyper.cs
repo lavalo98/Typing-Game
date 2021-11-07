@@ -20,6 +20,7 @@ public class TwoWordTyper : MonoBehaviour
     public float health = 100f;
     private int charIndex = 1;
     public int charWrong = 0;
+    public int totalCharWrong = 0;
     private int secondWordCheck = 0;
     private int wordScore = 0;
     private string wrongLetters;
@@ -158,14 +159,7 @@ public class TwoWordTyper : MonoBehaviour
                 cumulativeScore += wordScore;
                 //Debug.Log("Base Word Score:" + wordScore + "     Length of word: " + currentWord.Length + "         charWrong" + charWrong);
                 //Debug.Log("Letters typed wrong: " + wrongLetters);
-                if (charWrong == 0)
-                {
-                    GameObject.FindGameObjectWithTag("Score Tracker").GetComponent<ScoreTracker>().wordStreak++;
-                }
-                else
-                {
-                    GameObject.FindGameObjectWithTag("Score Tracker").GetComponent<ScoreTracker>().wordStreak = 0;
-                }
+                totalCharWrong += charWrong;
                 GameObject.FindGameObjectWithTag("WPMTracker").GetComponent<WPMTracker>().charactersWrong += charWrong;
                 GameObject.FindGameObjectWithTag("WPMTracker").GetComponent<WPMTracker>().completedCharacters += currentWord.Length;
                 setRemainingWord(secondWord);
@@ -184,11 +178,10 @@ public class TwoWordTyper : MonoBehaviour
             wordScore = 10 * secondWord.Length;
             wordScore -= (10 * charWrong);
             cumulativeScore += wordScore;
+            totalCharWrong += charWrong;
             //Debug.Log("Base Word Score:" + wordScore + "     Length of word: " + secondWord.Length + "         charWrong" + charWrong);
             //Debug.Log("Letters typed wrong: " + wrongLetters);
-            GameObject.FindGameObjectWithTag("Score Tracker").GetComponent<ScoreTracker>().beforeManipulationScore = cumulativeScore;
-            GameObject.FindGameObjectWithTag("Score Tracker").GetComponent<ScoreTracker>().scoreFromWordAfterManipulation(GameObject.FindGameObjectWithTag("Score Tracker").GetComponent<ScoreTracker>().wordStreak);
-            if (charWrong == 0)
+            if (totalCharWrong == 0)
             {
                 GameObject.FindGameObjectWithTag("Score Tracker").GetComponent<ScoreTracker>().wordStreak++;
             }
@@ -196,6 +189,8 @@ public class TwoWordTyper : MonoBehaviour
             {
                 GameObject.FindGameObjectWithTag("Score Tracker").GetComponent<ScoreTracker>().wordStreak = 0;
             }
+            GameObject.FindGameObjectWithTag("Score Tracker").GetComponent<ScoreTracker>().beforeManipulationScore = cumulativeScore;
+            GameObject.FindGameObjectWithTag("Score Tracker").GetComponent<ScoreTracker>().scoreFromWordAfterManipulation(GameObject.FindGameObjectWithTag("Score Tracker").GetComponent<ScoreTracker>().wordStreak);
             health -= 50f;
             GameObject.FindGameObjectWithTag("WPMTracker").GetComponent<WPMTracker>().charactersWrong += charWrong;
             GameObject.FindGameObjectWithTag("WPMTracker").GetComponent<WPMTracker>().completedCharacters += secondWord.Length;

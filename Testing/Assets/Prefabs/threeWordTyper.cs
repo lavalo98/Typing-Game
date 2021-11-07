@@ -21,6 +21,7 @@ public class threeWordTyper : MonoBehaviour
     public NavMeshAgent agent;
     private int charIndex = 1;
     public int charWrong = 0;
+    public int totalCharWrong = 0;
     private int wordCheck = 0;
     private int wordScore = 0;
     private int cumulativeScore;
@@ -169,14 +170,7 @@ public class threeWordTyper : MonoBehaviour
                 wordScore -= (10 * charWrong);
                 cumulativeScore += wordScore;
                 //Debug.Log("Base Word Score:" + wordScore + "     Length of word: " + currentWord.Length + "         charWrong" + charWrong);
-                if (charWrong == 0)
-                {
-                    GameObject.FindGameObjectWithTag("Score Tracker").GetComponent<ScoreTracker>().wordStreak++;
-                }
-                else
-                {
-                    GameObject.FindGameObjectWithTag("Score Tracker").GetComponent<ScoreTracker>().wordStreak = 0;
-                }
+                totalCharWrong += charWrong;
                 GameObject.FindGameObjectWithTag("WPMTracker").GetComponent<WPMTracker>().charactersWrong += charWrong;
                 GameObject.FindGameObjectWithTag("WPMTracker").GetComponent<WPMTracker>().completedCharacters += currentWord.Length;
                 setRemainingWord(secondWord);
@@ -197,14 +191,7 @@ public class threeWordTyper : MonoBehaviour
                 wordScore -= (10 * charWrong);
                 cumulativeScore += wordScore;
                 //Debug.Log("Base Word Score:" + wordScore + "     Length of word: " + secondWord.Length + "         charWrong" + charWrong);
-                if (charWrong == 0)
-                {
-                    GameObject.FindGameObjectWithTag("Score Tracker").GetComponent<ScoreTracker>().wordStreak++;
-                }
-                else
-                {
-                    GameObject.FindGameObjectWithTag("Score Tracker").GetComponent<ScoreTracker>().wordStreak = 0;
-                }
+                totalCharWrong += charWrong;
                 GameObject.FindGameObjectWithTag("WPMTracker").GetComponent<WPMTracker>().charactersWrong += charWrong;
                 GameObject.FindGameObjectWithTag("WPMTracker").GetComponent<WPMTracker>().completedCharacters += secondWord.Length;
                 setRemainingWord(thirdWord);
@@ -224,10 +211,9 @@ public class threeWordTyper : MonoBehaviour
             wordScore = 10 * thirdWord.Length;
             wordScore -= (10 * charWrong);
             cumulativeScore += wordScore;
+            totalCharWrong += charWrong;
             //Debug.Log("Base Word Score:" + wordScore + "     Length of word: " + thirdWord.Length + "         charWrong" + charWrong);
-            GameObject.FindGameObjectWithTag("Score Tracker").GetComponent<ScoreTracker>().beforeManipulationScore = cumulativeScore;
-            GameObject.FindGameObjectWithTag("Score Tracker").GetComponent<ScoreTracker>().scoreFromWordAfterManipulation(GameObject.FindGameObjectWithTag("Score Tracker").GetComponent<ScoreTracker>().wordStreak);
-            if (charWrong == 0)
+            if (totalCharWrong == 0)
             {
                 GameObject.FindGameObjectWithTag("Score Tracker").GetComponent<ScoreTracker>().wordStreak++;
             }
@@ -235,6 +221,8 @@ public class threeWordTyper : MonoBehaviour
             {
                 GameObject.FindGameObjectWithTag("Score Tracker").GetComponent<ScoreTracker>().wordStreak = 0;
             }
+            GameObject.FindGameObjectWithTag("Score Tracker").GetComponent<ScoreTracker>().beforeManipulationScore = cumulativeScore;
+            GameObject.FindGameObjectWithTag("Score Tracker").GetComponent<ScoreTracker>().scoreFromWordAfterManipulation(GameObject.FindGameObjectWithTag("Score Tracker").GetComponent<ScoreTracker>().wordStreak);
             GameObject.FindGameObjectWithTag("WPMTracker").GetComponent<WPMTracker>().charactersWrong += charWrong;
             GameObject.FindGameObjectWithTag("WPMTracker").GetComponent<WPMTracker>().completedCharacters += thirdWord.Length;
             projectile.spawnProjectile();

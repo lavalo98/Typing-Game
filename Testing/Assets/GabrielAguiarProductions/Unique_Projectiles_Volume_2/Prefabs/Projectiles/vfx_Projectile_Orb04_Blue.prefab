@@ -33764,10 +33764,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ballAudio: []
   playSound: {fileID: 0}
+  spawner: {fileID: 0}
   Animation: 0
-  projectile: {fileID: 0}
-  enemyToKill: {fileID: 0}
-  randomEnemy: 0
 --- !u!1 &2347951174921195967
 GameObject:
   m_ObjectHideFlags: 0

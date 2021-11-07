@@ -7,21 +7,16 @@ public class attackEnemyMovement : MonoBehaviour
 
     public GameObject[] ballAudio;
     public AudioSource playSound;
+    public projectileSpawner spawner;
 
     private int randomSound;
 
     public float Animation;
 
-    public projectileSpawner projectile;
-
-    public GameObject enemyToKill;
-
-    public int randomEnemy;
-
     // Start is called before the first frame update
     void Awake()
     {
-        projectile = GameObject.FindGameObjectWithTag("ProjectileSpawner").GetComponent<projectileSpawner>();
+        spawner = GameObject.FindGameObjectWithTag("ProjectileSpawner").GetComponent<projectileSpawner>();
 
         randomSound = Random.Range(0, 3);
 
@@ -33,12 +28,28 @@ public class attackEnemyMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (enemyToKill != null) {
-            transform.LookAt(enemyToKill.transform);
-            Animation += Time.deltaTime;
-            Animation = Animation % 5;
-            transform.position = MathParabola.Parabola(new Vector3(0, 4, 0), enemyToKill.transform.position, 5f, Animation * 2f);
+
+        Animation += Time.deltaTime;
+        Animation = Animation % 5;
+
+        foreach (GameObject projectile in spawner.spawnedProjectiles) {
+            if(gameObject == projectile) {
+                if(spawner.markedEnemies[spawner.findIndexOf(spawner.spawnedProjectiles, gameObject)] != null) {
+                    transform.LookAt(spawner.markedEnemies[spawner.findIndexOf(spawner.spawnedProjectiles, gameObject)].transform);
+                    transform.position = MathParabola.Parabola(new Vector3(0, 4, 0), spawner.markedEnemies[spawner.findIndexOf(spawner.spawnedProjectiles, gameObject)].transform.position, 5f, Animation * 2f);
+                }
+                else {
+                    Destroy(gameObject);
+                }
+            }
         }
+
+        //transform.position = Vector3.MoveTowards(transform.position, targ.transform.position, .03);
+        /*if (enemyToKill != null) {
+            
+            
+            
+        }*/
     }
 
     public void playAudio()

@@ -243,17 +243,13 @@ public class WordBank : MonoBehaviour
         {
             chooseRandomWordFrom7to9CharLength();
         }
-        else if (rand100 <= 50 && rand100 > 30) // 20% Chance
+        else if (rand100 <= 60 && rand100 > 30) // 30% Chance
         {
             chooseRandomWordFrom5to6CharLength();
         }
-        else if (rand100 <= 70 && rand100 > 50) // 20% Chance
+        else if (rand100 <= 100 && rand100 > 60) // 40% Chance
         {
             chooseRandomWordFrom3to4CharLength();
-        }
-        else if (rand100 <= 100 && rand100 > 70) // 25% Chance
-        {
-            chooseRandomWordFrom1to2CharLength();
         }
 
         shuffle(workingWords);
@@ -265,7 +261,7 @@ public class WordBank : MonoBehaviour
             wordDiffuculty = GameObject.FindGameObjectWithTag("WordDifficultyChecker").GetComponent<WordDiffucultyCalc>().calculateDifficulty(newWord);
             if (wordDiffuculty > currentDifficulty)
             {
-                UnityEngine.Debug.Log("Word Denied! Too Hard: " + newWord + "     " + wordDiffuculty + " > " + currentDifficulty);
+                //UnityEngine.Debug.Log("Word Denied! Too Hard: " + newWord + "     " + wordDiffuculty + " > " + currentDifficulty);
                 goto Start;
             }
             workingWords.Remove(newWord);

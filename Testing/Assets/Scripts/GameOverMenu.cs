@@ -19,8 +19,20 @@ public class GameOverMenu : MonoBehaviour
         SceneManager.LoadScene("Main Menu");
     }
 
+    IEnumerator resetLevel() {
+        transition.SetTrigger("Start");
+
+        yield return new WaitForSeconds(transitionTime);
+
+        SceneManager.LoadScene("Level01");
+    }
+
     public void backToMainMenuFromLevel()
     {
         StartCoroutine(backToMain());
+    }
+
+    public void resetLevelFromMenu() {
+        StartCoroutine(resetLevel());
     }
 }
