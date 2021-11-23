@@ -456,6 +456,7 @@ MonoBehaviour:
   WPMTracker: {fileID: 0}
   wordOutput: {fileID: 1122446870989515644}
   projectile: {fileID: 0}
+  currentWord: 
   health: 100
   myDestroyer: {fileID: 4265658308856026336}
   clickSound: {fileID: 6858337957482714156, guid: c944e73c7d8c266438a13d2121db2241, type: 3}
@@ -539,7 +540,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 1
+  m_Speed: 0.35
   m_Acceleration: 1
   avoidancePriority: 50
   m_AngularSpeed: 300

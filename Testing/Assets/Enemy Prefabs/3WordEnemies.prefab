@@ -595,12 +595,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wordBank: {fileID: 0}
   wordOutput: {fileID: 4023281221233132834}
+  currentWord: 
   projectile: {fileID: 0}
   myDestroyer: {fileID: 9101975591558658143}
   clickSound: {fileID: 6858337957482714156, guid: c944e73c7d8c266438a13d2121db2241, type: 3}
   health: 100
   agent: {fileID: -2696803932029043016}
   charWrong: 0
+  totalCharWrong: 0
 --- !u!114 &5427920539191792661
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -624,7 +626,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 0.5
+  m_Speed: 0.35
   m_Acceleration: 0.5
   avoidancePriority: 50
   m_AngularSpeed: 300
