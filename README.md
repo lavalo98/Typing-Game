@@ -1,4 +1,5 @@
-# Endless typing survival game
+# Endless typing survival game (*In Development*)
+If you have any suggestions add them here: https://trello.com/b/DAOx0yXE/typing-game
 <h2>Main Menu</h2>
 <img src="https://imgur.com/jwixgp7.gif" width="600" height="300">
 
