@@ -1,3 +1,3 @@
 # Typing-Game
 Endless typing survival game
-![Imgur Image](http://i.imgur.com/zTONrOD.jpg)
+![Imgur Image](https://imgur.com/rMCwrfB.gif)
